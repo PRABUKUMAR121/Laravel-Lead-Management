@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Leadcontroller;
 use App\Http\Controllers\Registercontroller;
+use App\Http\Middleware\roleMiddleware;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +30,7 @@ Route::get('/add-lead', function () {
 
 Route::post('/add-lead',[Leadcontroller::class,'save']);
 
-Route::get('/lead-list',[Leadcontroller::class,'list']);
+Route::middleware(['role'])->get('/lead-list',[Leadcontroller::class,'list']);
 
 Route::get('/lead/edit/{id}',[Leadcontroller::class,'edit']);
 
@@ -48,3 +49,11 @@ Route::post('/register',[Registercontroller::class,'register']);
 Route::view('/login','concept.pages.login');
 
 Route::post('/login',[Registercontroller::class,'login']);
+
+Route::get('/add-tm',[Registercontroller::class,'tm_add']);
+
+Route::post('/add-tm',[Registercontroller::class,'tm_store']);
+
+Route::get('/tm-list',[Registercontroller::class,'tm_list']);
+
+

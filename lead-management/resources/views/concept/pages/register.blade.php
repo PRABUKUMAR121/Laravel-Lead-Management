@@ -66,6 +66,15 @@
                 <div class="form-group">
                     <input class="form-control form-control-lg" required="" placeholder="password_confirmation" name="password_confirmation">
                 </div>
+                <div class="form-group">
+                  
+                    <select class="form-control form-control-lg" name="role">
+                        <option></option>
+                        <option value="MD">MD</option>
+                        <option value="TM">TM</option>
+                        <option value="TC">TC</option>
+                    </select>
+                </div>
                 @csrf
                 <div class="form-group pt-2">
                     <button class="btn btn-block btn-primary" type="submit">Register My Account</button>

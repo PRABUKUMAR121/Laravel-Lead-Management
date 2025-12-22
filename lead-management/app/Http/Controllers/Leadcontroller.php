@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Lead;
+
 use DB;
 
 class Leadcontroller extends Controller
@@ -48,7 +50,7 @@ return redirect('/add-lead')->withMessage("Lead Inserted successfully")->with('c
 
     public function list()
     {
-        $leads=DB::select("select * from leads");
+        $leads=Lead::where('lead_priority','High')->paginate(5);
         return view('concept.pages.lead_list',compact('leads'));
     }
 

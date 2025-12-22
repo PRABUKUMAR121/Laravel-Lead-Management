@@ -80,10 +80,10 @@
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/chart-c3.html">Add Team manager</a>
+                                            <a class="nav-link" href="{{url('add-tm')}}">Add Team manager</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/chart-chartist.html">List</a>
+                                            <a class="nav-link" href="{{url('tm-list')}}">List</a>
                                         </li>
                                        
                                     </ul>
