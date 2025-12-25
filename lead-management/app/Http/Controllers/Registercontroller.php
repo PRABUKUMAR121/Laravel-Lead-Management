@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 use App\Models\Account;
 
+use App\Models\Demo;
+
+use Transaction;
+
 Use Hash;
 
 
@@ -19,6 +23,8 @@ class Registercontroller extends Controller
     public function register(Request $request)
     {
 
+        DB::beginTransaction();
+
         $input=$request->validate([
 
             'username'=>'required|string|min:5',
@@ -29,14 +35,26 @@ class Registercontroller extends Controller
         ]);
 
 
-        $account=new Account;
+        // $account=new Account;
 
-        $account->username=$request->username;
-        $account->password=Hash::Make($request->password);
-        $account->role=$request->role;
-        $account->email=$request->email;
+        // $account->username=$request->username;
+        // $account->password=Hash::Make($request->password);
+        // $account->role=$request->role;
+        // $account->email=$request->email;
 
-        $account->save();
+        // $account->save();
+
+        try
+        {
+            Account::create(['username'=>$request->username,'password'=>Hash::Make($request->password),'email'=>$request->email,'role'=>$request->role]);
+            Demo::create($request->all());
+            DB::commit();
+        }
+        catch(\Exception $e)
+        {
+            DB::rollback();
+            return $e->getMessage();
+        }
 
 
     }
@@ -53,7 +71,7 @@ class Registercontroller extends Controller
         {
             Auth::login($account);
            
-           return redirect('/add-tm')->withMessage(auth()->user()->username)->withClass('btn btn-success');
+           return redirect('/add-lead')->withMessage(auth()->user()->username)->withClass('btn btn-success');
 
         }
         else

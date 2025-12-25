@@ -9,6 +9,8 @@ class Account extends Authenticatable
 {
     use HasFactory;
 
+    protected $fillable=['username','password','role','email'];
+
     public function getAuthIdentifierName()
     {
         return 'username';

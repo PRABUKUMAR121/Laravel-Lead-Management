@@ -1,7 +1,7 @@
 @extends('concept.index')
-@section('menu','Leads')
-@section('page','Lead list')
-@section('page_subtitle','Lead List')
+@section('menu','Telecaller')
+@section('page','Telecaller')
+@section('page_subtitle','List')
 @section('main-content')
 <head>
     <!-- Required meta tags -->
@@ -37,23 +37,13 @@
     <thead>
         <tr>
             <th>S.No</th>
-            <th>Lead Given Date</th>
-            <th>Lead Name</th>
-            <th>Company</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Assigned To</th>
-            <th>Assigned Date</th>
-            <th>Priority</th>
-            <th>Status</th>
-            <th>Solution Date</th>
-            <th>Stage</th>
+            <th>Team Manager</th>
             <th>Actions</th>
         </tr>
     </thead>
 
     <tbody>
-@empty($leads)
+@empty($tcs)
  <tr>
             <th colspan="13">No Records found</th>
             
@@ -62,30 +52,18 @@
 @php
 $i=1;
 @endphp
-@foreach($leads as $lead)
+@foreach($tcs as $tc)
         <tr>
 
       <td>{{$i++}}</td>
-            <td>{{$lead->lead_given_date}}</td>
-            <td>{{$lead->lead_name}}</td>
-            <td>{{$lead->company}}</td>
-            <td>{{$lead->phone}}</td>
-            <td>{{$lead->email}}</td>
-            <td>{{$lead->assigned_to}}</td>
-             <td>{{$lead->assigned_date}}</td>
-            <td><span class="{{$lead->lead_priority=='High'? 'badge badge-danger':'badge badge-primary'}}">{{$lead->lead_priority}}</span></td>
-             <td>{{$lead->closed_status}}</td>
-              <td>{{$lead->solution_date}}</td>
-              <td>{{$lead->lead_status}}</td>
+            <td>{{$tc->telecaller}}</td>
+           
 
             <td>
-                @can('admin_access')
-                <a href="{{url('lead/edit/').'/'.$lead->id}}" class="btn btn-sm btn-info">Edit</a>
-                @endcan
-
-                <a href="{{url('lead/delete/').'/'.$lead->id}}"
+                <a href="{{route('telecallers.edit',$tc->id)}}" class="btn btn-sm btn-info">Edit</a>
+                <a href="{{route('telecallers.destroy',$tc->id)}}"
                    class="btn btn-sm btn-danger"
-                   onclick="return confirm('Are you sure you want to delete this lead?');">
+                   onclick="return confirm('Are you sure you want to delete this tm?');">
                    Delete
                 </a>
             </td>
@@ -97,8 +75,6 @@ $i=1;
        
     </tfoot>
 </table>
-
-<?=$leads->links();?>
 
                                 </div>
                             </div>

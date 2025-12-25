@@ -8,6 +8,8 @@ use App\Models\Lead;
 
 use DB;
 
+use Gate;
+
 class Leadcontroller extends Controller
 {
     //
@@ -57,8 +59,15 @@ return redirect('/add-lead')->withMessage("Lead Inserted successfully")->with('c
 
     public function edit(Request $request,$id)
     {
+
+        if(Gate::allows('admin_access'))
+        {
+            return abort(401);
+        }
+
         $leads=DB::select("select * from leads where id=?",[$id]);
         return view('concept.pages.edit_lead',['leads'=>$leads]);
+
     }
 
     public function update(Request $request,$id)
